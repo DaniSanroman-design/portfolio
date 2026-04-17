@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dani Sanromán | Portfolio 2026 - Coming Soon</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: 'var(--accent)',
+                        'accent-bg': 'var(--accent-bg)',
+                        'accent-text': 'var(--accent-text)',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        :root {
+            --desk-light: #e6e4df;
+            --accent: #8A5D00; 
+            --accent-bg: #FFC824; 
+            --accent-text: #1A1A1A; 
+            --black-soft: #242424;
+            --radius-main: 24px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--desk-light);
+            color: var(--black-soft);
+            cursor: none;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* =========================================
+           FIGMA TYPOGRAPHY SYSTEM 
+           ========================================= */
+        .f-h4 { font-size: 32px; line-height: 1.1; font-weight: 700; }
+        .f-body { font-size: 18px; line-height: 1.5; font-weight: 400; }
+        .f-overline { font-size: 12px; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.1em; }
+
+        @media (max-width: 768px) {
+            .f-h4 { font-size: 24px; }
+        }
+
+        /* =========================================
+           GLASSMORPHISM
+           ========================================= */
+        .floating-module {
+            background-color: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: var(--radius-main);
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.03);
+        }
+
+        .floating-module::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(153,153,153,0.3) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(36,36,36,0.05) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* LAYOUT & EFFECTS */
+        .parallax-layer { pointer-events: none; transition: transform 0.1s ease-out; } 
+        .cursor-dot { width: 8px; height: 8px; background: var(--black-soft); position: fixed; border-radius: 50%; pointer-events: none; z-index: 10000; }
+
+        /* CAROUSEL TEXT */
+        .headline-carousel {
+            height: 40px; 
+            overflow: hidden;
+            position: relative;
+        }
+        .headline-item {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(-100%);
+            white-space: nowrap;
+        }
+
+        /* BUTTON INTERACTION - COMMON STYLES */
+        .btn-pill, .btn-pill-sec {
+            padding: 12px 32px; /* Padding reducido: menos alto y menos ancho */
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        /* PRIMARY */
+        .btn-pill {
+            background-color: var(--accent-bg);
+            color: var(--accent-text);
+            box-shadow: 0 4px 15px rgba(255, 200, 36, 0.2);
+        }
+
+        .btn-pill::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        .btn-pill:hover::before { transform: translateY(0); }
+        .btn-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 200, 36, 0.3); }
+
+        /* SECONDARY */
+        .btn-pill-sec {
+            background-color: transparent;
+            color: var(--black-soft);
+            box-shadow: inset 0 0 0 1px rgba(36, 36, 36, 0.15);
+        }
+
+        .btn-pill-sec::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(36, 36, 36, 0.05);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        .btn-pill-sec:hover::before { transform: translateY(0); }
+        .btn-pill-sec:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px rgba(36, 36, 36, 0.3), 0 4px 15px rgba(0, 0, 0, 0.03); }
+
+        /* Hover text vertical push effect (Fixed to exact pixels) */
+        .btn-text-wrapper {
+            position: relative;
+            height: 18px; 
+            overflow: hidden;
+        }
+
+        .btn-text-inner {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-text-inner span {
+            height: 18px; 
+            line-height: 18px;
+            display: block;
+            white-space: nowrap;
+        }
+
+        .btn-pill:hover .btn-text-inner,
+        .btn-pill-sec:hover .btn-text-inner {
+            transform: translateY(-18px); 
+        }
+
+    </style>
+</head>
+<body class="light-mode">
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+    <div class="relative w-full h-screen overflow-hidden flex items-center justify-center">
+        <div class="absolute inset-0 z-0">
+            <img src="./Assets/sequence-light/0000.webp" id="bg-frame" 
+                 class="w-full h-full object-cover opacity-15 grayscale filter blur-[100px] scale-110">
+        </div>
+
+        <main class="relative z-20 px-6 w-full max-w-5xl">
+            <div class="parallax-layer flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12" data-speed="0.03">
+                
+                <div class="relative w-48 h-48 lg:w-56 lg:h-56 flex-shrink-0" id="avatar-wrapper">
+                    <div class="absolute inset-0 floating-module rounded-full z-0"></div>
+                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[110%] h-auto z-10 origin-bottom pointer-events-auto cursor-pointer">
+                        <img src="./Assets/avatar-dani.png" id="avatar-img" alt="Avatar Dani Sanromán" 
+                             class="w-full h-full drop-shadow-2xl">
+                    </div>
+                </div>
+
+                <div class="floating-module p-8 lg:p-14 w-full max-w-2xl relative pointer-events-auto">
+                    
+                    <span class="f-overline text-neutral-500 font-semibold mb-6 block">Dani Sanromán's portfolio</span>
+                    
+                    <div class="headline-carousel mb-4">
+                        <div class="headline-item f-h4 tracking-tight">📏 Aligning pixels.</div>
+                        <div class="headline-item f-h4 tracking-tight">🤔 Questioning font choices.</div>
+                        <div class="headline-item f-h4 tracking-tight">💭 Stressing about a cool storytelling.</div>
+                        <div class="headline-item f-h4 tracking-tight">💀 Deleting yesterday's genius idea.</div>
+                        <div class="headline-item f-h4 tracking-tight">🛠️ Work in progress.</div>
+                        <div class="headline-item f-h4 tracking-tight">🥁 Looping the loop.</div>
+                    </div>
+                    
+                    <p class="f-body opacity-60 max-w-md mb-12">
+                        Yes, another unfinished designer portfolio. How original. Check back in a few days — but it’ll probably look the same…
+                    </p>
+
+                    <div class="flex flex-row items-center gap-4">
+                        <a href="https://www.behance.net/danisanroman" target="_blank" class="btn-pill-sec" id="btn-behance">
+                            <div class="btn-text-wrapper">
+                                <div class="btn-text-inner">
+                                    <span>Check my projects</span>
+                                    <span>Go to Behance</span>
+                                </div>
+                            </div>
+                            <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/daniel-sanroman/" target="_blank" class="btn-pill" id="btn-linkedin">
+                            <div class="btn-text-wrapper">
+                                <div class="btn-text-inner">
+                                    <span>Get in touch</span>
+                                    <span>Go to LinkedIn</span>
+                                </div>
+                            </div>
+                            <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // --- Custom Cursor ---
+        const dot = document.getElementById('cursor-dot');
+
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0 });
+            
+            const xPos = (e.clientX / window.innerWidth - 0.5) * 2;
+            const yPos = (e.clientY / window.innerHeight - 0.5) * 2;
+
+            // Parallax
+            gsap.utils.toArray('.parallax-layer').forEach(layer => {
+                const speed = layer.getAttribute('data-speed') || 0.05;
+                gsap.to(layer, {
+                    x: xPos * 100 * speed,
+                    y: yPos * 100 * speed,
+                    duration: 1.5,
+                    ease: "power2.out"
+                });
+            });
+
+            // --- Avatar Repel Effect ---
+            const avatarWrapper = document.getElementById('avatar-wrapper');
+            const avatarImg = document.getElementById('avatar-img');
+            
+            if(avatarWrapper && avatarImg) {
+                const rect = avatarWrapper.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const distX = e.clientX - centerX;
+                const distY = e.clientY - centerY;
+                const distance = Math.sqrt(distX*distX + distY*distY);
+
+                if (distance < 180) {
+                    gsap.to(avatarImg, {
+                        x: -(distX * 0.15),
+                        y: -(distY * 0.15),
+                        duration: 0.6,
+                        ease: "power2.out"
+                    });
+                } else {
+                    gsap.to(avatarImg, {
+                        x: 0, y: 0,
+                        duration: 0.8,
+                        ease: "elastic.out(1, 0.4)"
+                    });
+                }
+            }
+        });
+
+        // --- Avatar Hover Src Change ---
+        const avatarWrapper = document.getElementById('avatar-wrapper');
+        const avatarImg = document.getElementById('avatar-img');
+        
+        avatarWrapper.addEventListener('mouseenter', () => {
+            avatarImg.src = './Assets/avatar-dani-hover.png';
+            gsap.to(dot, { scale: 2.5, duration: 0.2, ease: "power2.out" });
+        });
+        
+        avatarWrapper.addEventListener('mouseleave', () => {
+            avatarImg.src = './Assets/avatar-dani.png';
+            gsap.to(dot, { scale: 1, duration: 0.2, ease: "power2.out" });
+        });
+
+        // Hover botones
+        const btns = document.querySelectorAll('.btn-pill, .btn-pill-sec');
+        btns.forEach(btn => {
+            btn.addEventListener('mouseenter', () => gsap.to(dot, { scale: 2.5, duration: 0.2, ease: "power2.out" }));
+            btn.addEventListener('mouseleave', () => gsap.to(dot, { scale: 1, duration: 0.2, ease: "power2.out" }));
+        });
+
+        // --- Carousel de Titulares ---
+        const items = document.querySelectorAll('.headline-item');
+        let currentItem = 0;
+
+        function playCarousel() {
+            const nextItem = (currentItem + 1) % items.length;
+            
+            gsap.to(items[currentItem], {
+                y: "100%",
+                opacity: 0,
+                duration: 0.8,
+                ease: "power3.inOut"
+            });
+
+            gsap.fromTo(items[nextItem], 
+                { y: "-100%", opacity: 0 },
+                { y: "0%", opacity: 1, duration: 0.8, ease: "power3.inOut" }
+            );
+
+            currentItem = nextItem;
+            setTimeout(playCarousel, 3000); 
+        }
+
+        gsap.set(items[0], { y: "0%", opacity: 1 });
+        setTimeout(playCarousel, 3000);
+    </script>
+</body>
+</html>
