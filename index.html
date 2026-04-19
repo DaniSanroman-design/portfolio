@@ -53,6 +53,7 @@
 
         @media (max-width: 768px) {
             .f-h4 { font-size: 24px; }
+            .headline-carousel { height: 30px !important; }
         }
 
         /* =========================================
@@ -103,12 +104,13 @@
 
         /* BUTTON INTERACTION - COMMON STYLES */
         .btn-pill, .btn-pill-sec {
-            padding: 12px 32px; /* Padding reducido: menos alto y menos ancho */
+            padding: 14px 32px; 
             border-radius: 999px;
             font-weight: 700;
             font-size: 14px;
             display: inline-flex;
             align-items: center;
+            justify-content: center; /* Importante para que centren el texto si el botón ocupa todo el ancho en móvil */
             gap: 10px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -196,10 +198,12 @@
                  class="w-full h-full object-cover opacity-15 grayscale filter blur-[100px] scale-110">
         </div>
 
-        <main class="relative z-20 px-6 w-full max-w-5xl">
-            <div class="parallax-layer flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12" data-speed="0.03">
+        <!-- Se ha ajustado el gap en móvil (gap-6) y añadido un padding vertical menor si hace falta -->
+        <main class="relative z-20 px-4 sm:px-6 w-full max-w-5xl">
+            <div class="parallax-layer flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12" data-speed="0.03">
                 
-                <div class="relative w-48 h-48 lg:w-56 lg:h-56 flex-shrink-0" id="avatar-wrapper">
+                <!-- Avatar ajustado para móvil (w-40 h-40 en móvil, normal en desktop) -->
+                <div class="relative w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 flex-shrink-0" id="avatar-wrapper">
                     <div class="absolute inset-0 floating-module rounded-full z-0"></div>
                     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[110%] h-auto z-10 origin-bottom pointer-events-auto cursor-pointer">
                         <img src="./Assets/avatar-dani.png" id="avatar-img" alt="Avatar Dani Sanromán" 
@@ -207,11 +211,12 @@
                     </div>
                 </div>
 
-                <div class="floating-module p-8 lg:p-14 w-full max-w-2xl relative pointer-events-auto">
+                <!-- Padding de la tarjeta ajustado en móvil (p-6) a desktop (p-14) -->
+                <div class="floating-module p-6 sm:p-8 lg:p-14 w-full max-w-2xl relative pointer-events-auto">
                     
-                    <span class="f-overline text-neutral-500 font-semibold mb-6 block">Dani Sanromán's portfolio</span>
+                    <span class="f-overline text-neutral-500 font-semibold mb-4 lg:mb-6 block">Dani Sanromán's portfolio</span>
                     
-                    <div class="headline-carousel mb-4">
+                    <div class="headline-carousel mb-3 lg:mb-4">
                         <div class="headline-item f-h4 tracking-tight">📏 Aligning pixels.</div>
                         <div class="headline-item f-h4 tracking-tight">🤔 Questioning font choices.</div>
                         <div class="headline-item f-h4 tracking-tight">💭 Stressing about a cool storytelling.</div>
@@ -220,12 +225,14 @@
                         <div class="headline-item f-h4 tracking-tight">🥁 Looping the loop.</div>
                     </div>
                     
-                    <p class="f-body opacity-60 max-w-md mb-12">
+                    <p class="f-body opacity-60 max-w-md mb-8 lg:mb-12">
                         Yes, another unfinished designer portfolio. How original. Check back in a few days — but it’ll probably look the same…
                     </p>
 
-                    <div class="flex flex-row items-center gap-4">
-                        <a href="https://www.behance.net/danisanroman" target="_blank" class="btn-pill-sec" id="btn-behance">
+                    <!-- Botones apilados en móvil (flex-col), uno al lado de otro en desktop (sm:flex-row) -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                        <!-- Secundario (Behance) -->
+                        <a href="https://www.behance.net/danisanroman" target="_blank" class="btn-pill-sec w-full sm:w-auto" id="btn-behance">
                             <div class="btn-text-wrapper">
                                 <div class="btn-text-inner">
                                     <span>Check my projects</span>
@@ -235,7 +242,8 @@
                             <i class="ph-bold ph-arrow-right"></i>
                         </a>
 
-                        <a href="https://www.linkedin.com/in/daniel-sanroman/" target="_blank" class="btn-pill" id="btn-linkedin">
+                        <!-- Principal (LinkedIn) -->
+                        <a href="https://www.linkedin.com/in/daniel-sanroman/" target="_blank" class="btn-pill w-full sm:w-auto" id="btn-linkedin">
                             <div class="btn-text-wrapper">
                                 <div class="btn-text-inner">
                                     <span>Get in touch</span>
