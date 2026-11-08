@@ -1,0 +1,15 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+/vendor.f2eb5e82b9.min.js
+  Cache-Control: public, max-age=31536000, immutable
+/splash.612f127870.min.js
+  Cache-Control: public, max-age=31536000, immutable
+/app.8539f00400.min.js
+  Cache-Control: public, max-age=31536000, immutable
+/site.2344f01794.min.css
+  Cache-Control: public, max-age=31536000, immutable
+/Assets/vendor/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

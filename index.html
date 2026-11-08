@@ -1,360 +1,376 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dani Sanromán | Portfolio 2026 - Coming Soon</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        accent: 'var(--accent)',
-                        'accent-bg': 'var(--accent-bg)',
-                        'accent-text': 'var(--accent-text)',
-                    }
-                }
-            }
-        }
+    <meta name="description" content="Dani Sanromán — Brand &amp; Product Designer based in Madrid. Somewhere between brands and products.">
+    <meta name="theme-color" content="#e6e4df">
+    <title>Dani Sanromán | Portfolio 2026</title>
+    <link rel="icon" type="image/png" href="./Assets/favicon.png?v=d5babe7c">
+<script>
+        // Match the body surface before external resources arrive; fail open on startup errors.
+        (() => {
+            if (location.hash || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            document.documentElement.classList.add('splash-pending');
+            window.__splashWatchdog = setTimeout(() => {
+                document.documentElement.classList.remove('splash-pending');
+                window.PortfolioSplash?.skip();
+            }, 12000);
+        })();
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-    <style>
-        :root {
-            --desk-light: #e6e4df;
-            --accent: #8A5D00; 
-            --accent-bg: #FFC824; 
-            --accent-text: #1A1A1A; 
-            --black-soft: #242424;
-            --radius-main: 24px;
-        }
-
-        body {
-            font-family: 'Albert Sans', sans-serif;
-            background-color: var(--desk-light);
-            color: var(--black-soft);
-            cursor: none;
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        /* =========================================
-           FIGMA TYPOGRAPHY SYSTEM 
-           ========================================= */
-        .f-h4 { font-size: 32px; line-height: 1.1; font-weight: 700; }
-        .f-body { font-size: 18px; line-height: 1.5; font-weight: 400; }
-        .f-overline { font-size: 12px; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.1em; }
-
-        @media (max-width: 768px) {
-            .f-h4 { font-size: 24px; }
-            .headline-carousel { height: 30px !important; }
-        }
-
-        /* =========================================
-           GLASSMORPHISM
-           ========================================= */
-        .floating-module {
-            background-color: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: var(--radius-main);
-            position: relative;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.03);
-        }
-
-        .floating-module::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(153,153,153,0.3) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(36,36,36,0.05) 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        /* LAYOUT & EFFECTS */
-        .parallax-layer { pointer-events: none; transition: transform 0.1s ease-out; } 
-        .cursor-dot { width: 8px; height: 8px; background: var(--black-soft); position: fixed; border-radius: 50%; pointer-events: none; z-index: 10000; }
-
-        /* CAROUSEL TEXT */
-        .headline-carousel {
-            height: 40px; 
-            overflow: hidden;
-            position: relative;
-        }
-        .headline-item {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(-100%);
-            white-space: nowrap;
-        }
-
-        /* BUTTON INTERACTION - COMMON STYLES */
-        .btn-pill, .btn-pill-sec {
-            padding: 14px 32px; 
-            border-radius: 999px;
-            font-weight: 700;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center; /* Importante para que centren el texto si el botón ocupa todo el ancho en móvil */
-            gap: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        /* PRIMARY */
-        .btn-pill {
-            background-color: var(--accent-bg);
-            color: var(--accent-text);
-            box-shadow: 0 4px 15px rgba(255, 200, 36, 0.2);
-        }
-
-        .btn-pill::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: -1;
-        }
-
-        .btn-pill:hover::before { transform: translateY(0); }
-        .btn-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 200, 36, 0.3); }
-
-        /* SECONDARY */
-        .btn-pill-sec {
-            background-color: transparent;
-            color: var(--black-soft);
-            box-shadow: inset 0 0 0 1px rgba(36, 36, 36, 0.15);
-        }
-
-        .btn-pill-sec::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(36, 36, 36, 0.05);
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: -1;
-        }
-
-        .btn-pill-sec:hover::before { transform: translateY(0); }
-        .btn-pill-sec:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px rgba(36, 36, 36, 0.3), 0 4px 15px rgba(0, 0, 0, 0.03); }
-
-        /* Hover text vertical push effect (Fixed to exact pixels) */
-        .btn-text-wrapper {
-            position: relative;
-            height: 18px; 
-            overflow: hidden;
-        }
-
-        .btn-text-inner {
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .btn-text-inner span {
-            height: 18px; 
-            line-height: 18px;
-            display: block;
-            white-space: nowrap;
-        }
-
-        .btn-pill:hover .btn-text-inner,
-        .btn-pill-sec:hover .btn-text-inner {
-            transform: translateY(-18px); 
-        }
-
-    </style>
+<style>html.splash-pending::before{content:"";position:fixed;inset:0;background:var(--desk-light,#e6e4df);z-index:2147483646}html.splash-pending{overflow:hidden}</style>
+<link rel="preload" as="image" href="./Assets/avatar-dani.webp">
+<link rel="preload" as="image" href="./Assets/sequence-light/0001-poster.webp">
+    <link rel="preload" as="font" href="./Assets/vendor/fonts/albert-2b38a909840d.woff2" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="./site.2344f01794.min.css">
+    <script src="./vendor.f2eb5e82b9.min.js"></script>
+    <script src="./splash.612f127870.min.js"></script>
 </head>
-<body class="light-mode">
+<body class="light-mode antialiased">
+
     <div class="cursor-dot" id="cursor-dot"></div>
 
-    <div class="relative w-full h-screen overflow-hidden flex items-center justify-center">
-        <div class="absolute inset-0 z-0">
-            <img src="./Assets/sequence-light/0000.webp" id="bg-frame" 
-                 class="w-full h-full object-cover opacity-15 grayscale filter blur-[100px] scale-110">
+    <nav class="fixed top-6 left-0 w-full z-50 pointer-events-none">
+        <div class="grid-container flex justify-between items-center gap-4">
+            <div class="floating-module rounded-full px-6 py-4 lg:px-8 flex justify-between items-center w-full pointer-events-auto">
+                <div class="f-h6 tracking-tight font-normal">Dani Sanromán</div>
+                <div class="flex items-center space-x-6 lg:space-x-10 f-overline opacity-90">
+                    <a href="#work" class="nav-link hover:text-[#FFCB2F] transition-colors hidden sm:block">Work</a>
+                    <a href="#about" class="nav-link hover:text-[#FFCB2F] transition-colors hidden sm:block">About</a>
+                    <a href="#contact" class="nav-link hover:text-[#FFCB2F] transition-colors hidden sm:block">Contact</a>
+                </div>
+            </div>
+            <div class="floating-module rounded-full p-2 pointer-events-auto flex items-center justify-center shrink-0">
+                <button type="button" class="theme-switch" onclick="toggleMode()" aria-label="Switch to dark mode" aria-pressed="false">
+                    <span class="theme-switch-thumb" aria-hidden="true"></span>
+                    <span class="theme-switch-labels" aria-hidden="true">
+                        <span class="ts-label ts-light"><i class="ph-fill ph-sun"></i></span>
+                        <span class="ts-label ts-dark"><i class="ph-fill ph-moon"></i></span>
+                    </span>
+                </button>
+            </div>
         </div>
+    </nav>
 
-        <!-- Se ha ajustado el gap en móvil (gap-6) y añadido un padding vertical menor si hace falta -->
-        <main class="relative z-20 px-4 sm:px-6 w-full max-w-5xl">
-            <div class="parallax-layer flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12" data-speed="0.03">
-                
-                <!-- Avatar ajustado para móvil (w-40 h-40 en móvil, normal en desktop) -->
-                <div class="relative w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 flex-shrink-0" id="avatar-wrapper">
-                    <div class="absolute inset-0 floating-module rounded-full z-0"></div>
-                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[110%] h-auto z-10 origin-bottom pointer-events-auto cursor-pointer">
-                        <img src="./Assets/avatar-dani.png" id="avatar-img" alt="Avatar Dani Sanromán" 
-                             class="w-full h-full drop-shadow-2xl">
+    <div class="desk-surface">
+        <canvas class="desk-tyre-marks" aria-hidden="true"></canvas>
+        
+
+        <header id="header-hero" class="h-[300vh] w-full relative z-10">
+            <div id="hero-pin-track">
+            <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center pointer-events-none">
+                <div class="noise-overlay z-10"></div>
+                <div id="canvas-wrapper" class="absolute inset-0 w-full h-full z-0">
+                    <canvas id="scroll-canvas-light" class="absolute inset-0 w-full h-full object-cover crisp-img transition-opacity duration-1000 opacity-100"></canvas>
+                    <canvas id="scroll-canvas-dark" class="absolute inset-0 w-full h-full object-cover crisp-img transition-opacity duration-1000 opacity-0"></canvas>
+                    <div id="hero-idle-video" class="absolute inset-0 pointer-events-none" aria-hidden="true">
+                        <video id="hero-video-light" src="./Assets/sequence-light/0001.mp4" poster="./Assets/sequence-light/0001-poster.webp" autoplay muted loop playsinline preload="auto" tabindex="-1" class="absolute inset-0 w-full h-full object-cover"></video>
+                        <video id="hero-video-dark" src="./Assets/sequence-dark/0001.mp4" poster="./Assets/sequence-dark/0001-poster.webp" autoplay muted loop playsinline preload="auto" tabindex="-1" class="absolute inset-0 w-full h-full object-cover"></video>
                     </div>
                 </div>
-
-                <!-- Padding de la tarjeta ajustado en móvil (p-6) a desktop (p-14) -->
-                <div class="floating-module p-6 sm:p-8 lg:p-14 w-full max-w-2xl relative pointer-events-auto">
-                    
-                    <span class="f-overline text-neutral-500 font-semibold mb-4 lg:mb-6 block">Dani Sanromán's portfolio</span>
-                    
-                    <div class="headline-carousel mb-3 lg:mb-4">
-                        <div class="headline-item f-h4 tracking-tight">📏 Aligning pixels.</div>
-                        <div class="headline-item f-h4 tracking-tight">🤔 Questioning font choices.</div>
-                        <div class="headline-item f-h4 tracking-tight">💭 Stressing about a cool storytelling.</div>
-                        <div class="headline-item f-h4 tracking-tight">💀 Deleting yesterday's genius idea.</div>
-                        <div class="headline-item f-h4 tracking-tight">🛠️ Work in progress.</div>
-                        <div class="headline-item f-h4 tracking-tight">🥁 Looping the loop.</div>
-                    </div>
-                    
-                    <p class="f-body opacity-60 max-w-md mb-8 lg:mb-12">
-                        Yes, another unfinished designer portfolio. How original. Check back in a few days — but it’ll probably look the same…
-                    </p>
-
-                    <!-- Botones apilados en móvil (flex-col), uno al lado de otro en desktop (sm:flex-row) -->
-                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                        <!-- Secundario (Behance) -->
-                        <a href="https://www.behance.net/danisanroman" target="_blank" class="btn-pill-sec w-full sm:w-auto" id="btn-behance">
-                            <div class="btn-text-wrapper">
-                                <div class="btn-text-inner">
-                                    <span>Check my projects</span>
-                                    <span>Go to Behance</span>
-                                </div>
+                
+                <div class="scroll-indicator-anchor z-30">
+                    <div class="scroll-indicator floating-module rounded-full px-6 py-3 flex items-center gap-3 text-[var(--black-soft)] dark:text-[#f5f5f5] transition-colors duration-500 pointer-events-auto cursor-pointer" role="button" tabindex="0" onclick="playHeroJourney()">
+                        <span >Scroll down</span>
+                        <div class="chip-arrow-window overflow-hidden relative">
+                            <div class="scroll-arrows flex flex-col absolute top-0 left-0 w-full">
+                                <i class="ph-light ph-arrow-down chip-arrow flex items-center justify-center"></i>
+                                <i class="ph-light ph-arrow-down chip-arrow flex items-center justify-center"></i>
                             </div>
-                            <i class="ph-bold ph-arrow-right"></i>
-                        </a>
-
-                        <!-- Principal (LinkedIn) -->
-                        <a href="https://www.linkedin.com/in/daniel-sanroman/" target="_blank" class="btn-pill w-full sm:w-auto" id="btn-linkedin">
-                            <div class="btn-text-wrapper">
-                                <div class="btn-text-inner">
-                                    <span>Get in touch</span>
-                                    <span>Go to LinkedIn</span>
-                                </div>
-                            </div>
-                            <i class="ph-bold ph-arrow-right"></i>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </main>
+            <div class="absolute bottom-0 left-0 w-full h-screen hero-blend z-10 pointer-events-none"></div>
+            </div>
+        </header>
+
+        
+
+        <section id="intro" class="intro-story py-32 grid-container relative z-20 -mt-[60vh] lg:-mt-[80vh]" aria-labelledby="intro-story-title" data-intro-story>
+            <div class="intro-story__grid">
+                <div class="intro-story__content">
+                    <div class="intro-story__header">
+                        <span class="f-overline text-muted">Hi there!</span>
+                        <h1 id="intro-story-title" class="intro-story__title f-h3">Somewhere between brands and products.</h1>
+                    </div>
+                    <div class="intro-story__copy">
+                        <p class="intro-story__statement f-h5 text-muted" data-intro-story-text>I'm Dani, a <strong>designer based in Madrid.</strong></p>
+                        <p class="intro-story__statement f-h5 text-muted" data-intro-story-text>I like figuring out what matters, <strong>turning ideas into things that work,</strong> and spending a slightly unreasonable amount of time on the details that make them <strong>look and feel awesome.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="py-20 grid-container relative z-20 pointer-events-none">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                
+                <div class="work-intro lg:col-span-4 self-start relative pointer-events-none">
+                    <div class="p-0 relative z-10">
+                        <span class="f-overline text-muted mb-4 block">Selected Work</span>
+                        <h2 id="work-heading" class="f-h3 mb-6">Caring about the big picture.<br>And the <button type="button" class="kerning-word" data-kerning aria-label="Scramble and fix kerning"><span class="kerning-text">kerning</span></button>.</h2>
+                        <p class="f-body text-muted">A selection of brand identities, digital products, and other things I've had the pleasure of figuring out.</p>
+                    </div>
+                    <div class="desk-set mouse-layer" data-speed="0.05" aria-hidden="true">
+                        <div class="desk-object desk-notebook"><div class="desk-object-turn"><img src="./Assets/Background%20items/notebook.webp" width="764" height="1010" alt="" class="bg-item" loading="lazy" decoding="async" draggable="false"></div></div>
+                        <div class="desk-object desk-pencil"><div class="desk-object-turn"><img src="./Assets/Background%20items/pencil.png" width="35" height="740" alt="" class="bg-item" loading="lazy" decoding="async" draggable="false"></div></div>
+                        <div class="desk-object desk-pen"><div class="desk-object-turn"><img src="./Assets/Background%20items/fountain-pen.png" width="51" height="560" alt="" class="bg-item" loading="lazy" decoding="async" draggable="false"></div></div>
+                        <div class="desk-object desk-pen-cap"><div class="desk-object-turn"><img src="./Assets/Background%20items/pen-cap.png" width="60" height="262" alt="" class="bg-item" loading="lazy" decoding="async" draggable="false"></div></div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10 pointer-events-auto">
+                    <div class="project-column flex flex-col gap-4">
+                        <a href="https://www.behance.net/gallery/257401521/Innoventure-Digital-Card-Game" onclick="event.preventDefault(); openProjectModal(1)" class="project-card floating-module overflow-hidden group flex flex-col">
+                            <div class="p-4 pb-0">
+                                <div class="aspect-[4/3] bg-neutral-200/50 dark:bg-neutral-800/50 relative overflow-hidden rounded-[16px]">
+                                    <img src="./Assets/projects/innoventure-digital-card-game/cover.webp" alt="InnoVenture" loading="lazy" decoding="async" class="project-image w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
+                                </div>
+                            </div>
+                            <div class="project-card-body p-6 flex justify-between gap-4 flex-grow">
+                                <div class="project-card-text">
+                                    <span class="f-overline text-muted mb-3 block">Digital product</span>
+                                    <h3 class="f-h4">InnoVenture</h3>
+                                </div>
+                                <div class="arrow-btn w-10 h-10 rounded-full bg-[#FFCB2F] text-[#242424] flex items-center justify-center shrink-0" aria-hidden="true"><i class="ph-bold ph-arrow-right"></i></div>
+                            </div>
+                        </a>
+                        <a href="https://www.behance.net/gallery/240713943/Fujifilm-ProArchive-Brand" onclick="event.preventDefault(); openProjectModal(3)" class="project-card floating-module overflow-hidden group flex flex-col">
+                            <div class="p-4 pb-0">
+                                <div class="aspect-[4/3] bg-neutral-200/50 dark:bg-neutral-800/50 relative overflow-hidden rounded-[16px]">
+                                    <img src="./Assets/projects/fujifilm-proarchive-brand/cover.webp" alt="Fujifilm ProArchive" loading="lazy" decoding="async" class="project-image w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
+                                </div>
+                            </div>
+                            <div class="project-card-body p-6 flex justify-between gap-4 flex-grow">
+                                <div class="project-card-text">
+                                    <span class="f-overline text-muted mb-3 block">Visual identity</span>
+                                    <h3 class="f-h4">Fujifilm ProArchive</h3>
+                                </div>
+                                <div class="arrow-btn w-10 h-10 rounded-full bg-[#FFCB2F] text-[#242424] flex items-center justify-center shrink-0" aria-hidden="true"><i class="ph-bold ph-arrow-right"></i></div>
+                            </div>
+                        </a>
+                        <article class="more-projects-card floating-module p-6" aria-labelledby="more-projects-heading">
+                            <h3 id="more-projects-heading" class="f-h5">There's more where that came from.</h3>
+                            <p class="f-body text-muted">I've got a few more projects over on Behance.</p>
+                            <a class="primary-button" href="https://www.behance.net/danisanroman" target="_blank" rel="noopener noreferrer">Take a look <i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
+                        </article>
+                    </div>
+
+                    <div class="project-column flex flex-col gap-4 lg:mt-32">
+                        <a href="https://www.behance.net/gallery/225845755/Made-for-Spain-Portugal-Website" onclick="event.preventDefault(); openProjectModal(4)" class="project-card floating-module overflow-hidden group flex flex-col">
+                            <div class="p-4 pb-0">
+                                <div class="aspect-[4/3] bg-neutral-200/50 dark:bg-neutral-800/50 relative overflow-hidden rounded-[16px]">
+                                    <img src="./Assets/projects/made-for-spain-portugal-website/cover.webp" alt="Made for Spain &amp; Portugal" loading="lazy" decoding="async" class="project-image w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
+                                </div>
+                            </div>
+                            <div class="project-card-body p-6 flex justify-between gap-4 flex-grow">
+                                <div class="project-card-text">
+                                    <span class="f-overline text-muted mb-3 block">Web design</span>
+                                    <h3 class="f-h4">Made for Spain &amp; Portugal</h3>
+                                </div>
+                                <div class="arrow-btn w-10 h-10 rounded-full bg-[#FFCB2F] text-[#242424] flex items-center justify-center shrink-0" aria-hidden="true"><i class="ph-bold ph-arrow-right"></i></div>
+                            </div>
+                        </a>
+                        <a href="https://www.behance.net/gallery/206962279/FVet-Branding" onclick="event.preventDefault(); openProjectModal(6)" class="project-card floating-module overflow-hidden group flex flex-col">
+                            <div class="p-4 pb-0">
+                                <div class="aspect-[4/3] bg-neutral-200/50 dark:bg-neutral-800/50 relative overflow-hidden rounded-[16px]">
+                                    <img src="./Assets/projects/fvet-branding/cover.webp" alt="FVet" loading="lazy" decoding="async" class="project-image w-full h-full object-cover group-hover:scale-105 transition-all duration-700">
+                                </div>
+                            </div>
+                            <div class="project-card-body p-6 flex justify-between gap-4 flex-grow">
+                                <div class="project-card-text">
+                                    <span class="f-overline text-muted mb-3 block">Visual identity</span>
+                                    <h3 class="f-h4">FVet</h3>
+                                </div>
+                                <div class="arrow-btn w-10 h-10 rounded-full bg-[#FFCB2F] text-[#242424] flex items-center justify-center shrink-0" aria-hidden="true"><i class="ph-bold ph-arrow-right"></i></div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="side-quests" class="py-20 grid-container relative z-20" aria-labelledby="side-quests-heading">
+            <div class="side-quests-layout side-quests-layout--folder-right">
+                <div class="side-quests-copy-track">
+                    <div class="side-quests-intro">
+                        <span class="f-overline text-muted mb-4 block">Oldies but goodies</span>
+                        <h2 id="side-quests-heading" class="f-h3 mb-6">Too good to keep in the folder.</h2>
+                        <p class="f-body reading-copy">A small archive of posters, publications and graphic experiments I've made over the years. Some came with a brief. Others were just for the fun of it.</p>
+                    </div>
+                </div>
+                <div class="side-quest-scene" data-side-quests data-folder-gallery>
+                    <div class="side-quest-links">
+                        <button type="button" data-work="in-cartel" data-title="IN" data-description="Cool poster for an underground short film, 2014"><span class="side-quest-card-print"><img src="./Assets/carpeta/web/in-cartel.webp" width="1237" height="1800" alt="IN, film poster" loading="lazy" decoding="async"></span></button>
+                        <button type="button" data-work="labo" data-title="Blue—ish" data-description="Cianotype workshop poster, 2017"><span class="side-quest-card-print"><img src="./Assets/carpeta/web/Labo-ciano.webp" width="1273" height="1800" alt="Blue—ish, cyanotype workshop poster" loading="lazy" decoding="async"></span></button>
+                        <button type="button" data-work="lpdg" data-title="La Pose del Gernica / Revista JUgar" data-description="Artistic-ish magazine, 2016–2025"><span class="side-quest-card-print"><img src="./Assets/carpeta/web/LPDG.webp" width="1536" height="1024" alt="La Pose del Gernica / Revista JUgar, magazine cover" loading="lazy" decoding="async"></span></button>
+                        <button type="button" data-work="lre2018" data-title="La radio encendida" data-description="Music festival for Radio 3."><span class="side-quest-card-print"><img src="./Assets/carpeta/web/LRE2018.webp" width="1273" height="1800" alt="La Radio Encendida 2018 poster" loading="lazy" decoding="async"></span></button>
+                        <button type="button" data-work="lre2019" data-title="La radio encendida" data-description="Music festival for Radio 3."><span class="side-quest-card-print"><img src="./Assets/carpeta/web/LRE2019.webp" width="1273" height="1800" alt="La Radio Encendida 2019 poster" loading="lazy" decoding="async"></span></button>
+                        <button type="button" data-work="shylow" data-title="Tierra by Shy Low" data-description="Photobook, 2016"><span class="side-quest-card-print"><img src="./Assets/carpeta/web/ShyLow-Tierra.webp" width="1800" height="1322" alt="Tierra by Shy Low, photobook" loading="lazy" decoding="async"></span></button>
+                        <button type="button" data-work="garbeo" data-title="Garbeo." data-description="Self-edited, 2018"><span class="side-quest-card-print"><img src="./Assets/carpeta/web/Garbeo.webp" width="1024" height="1536" alt="Garbeo, Mindtraveling printed piece" loading="lazy" decoding="async"></span></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-20 grid-container relative z-20" aria-labelledby="about-heading">
+            <div class="desk-car-spot mouse-layer" data-speed="0.07">
+                <div class="desk-object desk-car"><div class="desk-object-turn"><img src="./Assets/Background%20items/toy-car.png" width="132" height="316" alt="" role="button" tabindex="0" aria-label="Toy car: press Enter to launch" class="bg-item desk-car-body" loading="lazy" decoding="async" draggable="false"></div></div>
+            </div>
+            <header class="about-header">
+                <span class="f-overline text-muted mb-4 block">ABOUT</span>
+                <h2 id="about-heading" class="f-h3">The slightly longer version.</h2>
+            </header>
+
+            <div class="about-layout">
+                <div class="about-identity-row">
+                    <div class="about-portrait-card floating-module">
+                        <img class="about-portrait" src="./Assets/dani-retrato.webp" alt="Portrait of Dani Sanromán" width="1199" height="1312" loading="lazy" decoding="async">
+                    </div>
+                    <div class="about-identity floating-module">
+                        <div>
+                            <h3 class="f-h3">Dani Sanromán</h3>
+                            <p class="about-role f-h5">Brand &amp; Product Designer</p>
+                        </div>
+                    </div>
+                    <h3 class="about-statement floating-module">Thinking, making and figuring things out... Usually all at once.</h3>
+                </div>
+
+                <div class="about-story-row">
+                    <div class="about-story floating-module">
+                        <h3 id="journey-heading" class="f-h4">A few detours along the way.</h3>
+                        <p class="about-card-lead f-h6">Graphic design is where I started. Digital products came later.</p>
+                        <p class="f-body">Turns out, I didn't have to choose. Currently at Good Rebels, working across brands, digital products and everything in between.</p>
+                    </div>
+                    <div class="about-method floating-module">
+                        <h3 id="method-heading" class="f-h4">Making things happen.</h3>
+                        <p class="about-card-lead f-h6">Good ideas deserve to become real things.</p>
+                        <p class="f-body">I connect strategy, design and execution, moving between big-picture thinking and the smallest details. Sometimes with Figma, sometimes with code, sometimes with a pencil.</p>
+                    </div>
+                </div>
+
+                <div class="about-hats">
+                    <article class="about-hat floating-module" aria-labelledby="brand-hat-heading">
+                        <i class="ph ph-baseball-cap about-hat-graphic" aria-hidden="true"></i>
+                        <div class="about-hat-copy">
+                            <h3 id="brand-hat-heading" class="f-h4">A Brand Crafter</h3>
+                            <p class="f-body">Building brands with character, clarity and consistency. From the first idea to the smallest detail, making sure everything feels like it belongs.</p>
+                        </div>
+                    </article>
+
+                    <article class="about-hat floating-module" aria-labelledby="product-hat-heading">
+                        <i class="ph ph-football-helmet about-hat-graphic" aria-hidden="true"></i>
+                        <div class="about-hat-copy">
+                            <h3 id="product-hat-heading" class="f-h4">A Product Maker</h3>
+                            <p class="f-body">Making complex things feel simple. Combining intuitive interactions, crisp visuals and a healthy obsession with how things actually work.</p>
+                        </div>
+                    </article>
+
+                    <article class="about-hat floating-module surface-accent border-none" aria-labelledby="cooking-heading">
+                        <i class="ph ph-chef-hat about-hat-graphic" aria-hidden="true"></i>
+                        <div class="about-hat-copy">
+                            <h3 id="cooking-heading" class="f-h4">A Really Good Cook</h3>
+                            <p class="f-body">Good taste doesn't stop at design. Always experimenting with new ingredients, unexpected combinations and occasionally making a glorious mess.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="client-logos" class="client-logos-section py-20 grid-container relative z-20" aria-labelledby="client-logos-heading" data-client-logos>
+            <div class="client-logo-intro">
+                <span class="f-overline text-muted mb-4 block">Some Familiar Names</span>
+                <h2 id="client-logos-heading" class="f-h4">Good company along the way.</h2>
+            </div>
+            <ul id="client-logo-grid" class="client-logo-grid" aria-label="Selected clients">
+                <li class="client-logo-slot" data-logo="fujifilm"><img class="client-logo-image" src="./Assets/client-logos/Fujifilm.svg" alt="Fujifilm" width="1029" height="171" loading="lazy" decoding="async" style="--logo-width:156px"></li>
+                <li class="client-logo-slot" data-logo="toyota"><img class="client-logo-image" src="./Assets/client-logos/Toyota.svg" alt="Toyota" width="950" height="157" loading="lazy" decoding="async" style="--logo-width:170px"></li>
+                <li class="client-logo-slot" data-logo="ie"><img class="client-logo-image" src="./Assets/client-logos/IE_University_logo.svg" alt="IE University" width="320" height="338" loading="lazy" decoding="async" style="--logo-width:62px"></li>
+                <li class="client-logo-slot" data-logo="norma"><img class="client-logo-image" src="./Assets/client-logos/display/norma-group.svg" alt="NORMA Group" width="1605" height="800" loading="lazy" decoding="async" style="--logo-width:134px"></li>
+                <li class="client-logo-slot" data-logo="finnk"><img class="client-logo-image" src="./Assets/client-logos/cropped-finnk-logo-principal.png" alt="FINNK" width="1459" height="461" loading="lazy" decoding="async" style="--logo-width:144px"></li>
+                <li class="client-logo-slot" data-logo="repsol"><img class="client-logo-image" src="./Assets/client-logos/Repsol.png" alt="Repsol" width="239" height="56" loading="lazy" decoding="async" style="--logo-width:164px"></li>
+            </ul>
+        </section>
+
+        <footer id="footer" class="w-full relative overflow-hidden flex flex-col justify-end z-10">
+            <div class="noise-overlay z-10"></div>
+            <video id="footer-video-light" src="./Assets/footer-light.mp4" poster="./Assets/footer-light-poster.webp" width="1672" height="941" muted loop playsinline preload="metadata" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-bottom z-0 transition-opacity duration-1000 opacity-100 pointer-events-none"></video>
+            <video id="footer-video-dark" src="./Assets/footer-dark.mp4" poster="./Assets/footer-dark-poster.webp" width="1672" height="941" muted loop playsinline preload="metadata" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-bottom z-0 transition-opacity duration-1000 opacity-0 pointer-events-none"></video>
+            <div class="footer-blend" aria-hidden="true"></div>
+            
+            <div class="footer-content grid-container relative z-20 w-full">
+                <section id="contact" class="contact-cta" aria-labelledby="contact-heading">
+                    <span class="f-overline">Enough about me.</span>
+                    <h2 id="contact-heading" class="f-h3">Let's Talk.</h2>
+                    <p class="f-body">Have a cool project in mind? Or just want to say hello? I'd love to hear from you.</p>
+                    <a class="primary-button primary-button-inverse" href="mailto:hola@danisanroman.com">Contact Dani <i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
+                </section>
+                <div class="footer-identity text-left">
+                    <p class="f-h4 font-bold mb-2 footer-text">Dani Sanromán</p>
+                    <p class="f-caption footer-text-muted">© 2026 Dani Sanromán.<br>All rights reserved</p>
+                </div>
+            </div>
+        </footer>
+
+        <div class="back-to-top-anchor z-30">
+            <button id="btn-back-to-top" class="back-to-top-chip floating-module rounded-full px-6 py-3 flex items-center gap-3 pointer-events-auto cursor-pointer" type="button">
+                <span >Back to top</span>
+                <span class="chip-arrow-window overflow-hidden relative" aria-hidden="true">
+                    <span class="back-to-top-arrows flex flex-col absolute left-0 w-full">
+                        <i class="ph-light ph-arrow-up chip-arrow flex items-center justify-center"></i>
+                        <i class="ph-light ph-arrow-up chip-arrow flex items-center justify-center"></i>
+                    </span>
+                </span>
+            </button>
+        </div>
+
     </div>
 
-    <script>
-        // --- Custom Cursor ---
-        const dot = document.getElementById('cursor-dot');
+    <div id="project-modal-overlay" role="dialog" aria-modal="true" aria-label="Dani Sanromán’s projects" hidden>
+        <div id="project-modal" tabindex="-1">
+                <button id="project-close" type="button" onclick="closeProjectModal()" class="project-action project-action-close floating-module" aria-label="Close project">
+                    <i class="ph-bold ph-x" aria-hidden="true"></i>
+                </button>
 
-        window.addEventListener('mousemove', (e) => {
-            gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0 });
-            
-            const xPos = (e.clientX / window.innerWidth - 0.5) * 2;
-            const yPos = (e.clientY / window.innerHeight - 0.5) * 2;
+            <div id="project-stream"></div>
+            <template id="project-template"><article class="project-entry">
+<div class="project-info">
+                <section class="project-info-card project-info-heading floating-module" aria-label="Project overview">
+                    <div class="project-meta">
+                        <span data-field="overline" class="f-overline"></span>
+                    </div>
+                    <h2 data-field="title" class="f-h3 project-title" tabindex="-1"></h2>
+                    <p data-field="subtitle" class="f-body project-copy"></p>
+                </section>
+                <section class="project-info-card floating-module" aria-label="The challenge">
+                    <h3 class="f-h6 project-section-title">The challenge</h3>
+                    <p data-field="challenge" class="f-body project-copy"></p>
+                </section>
+                <section class="project-info-card floating-module" aria-label="The solution">
+                    <h3 class="f-h6 project-section-title">The solution</h3>
+                    <p data-field="solution" class="f-body project-copy"></p>
+                </section>
+            </div>
 
-            // Parallax
-            gsap.utils.toArray('.parallax-layer').forEach(layer => {
-                const speed = layer.getAttribute('data-speed') || 0.05;
-                gsap.to(layer, {
-                    x: xPos * 100 * speed,
-                    y: yPos * 100 * speed,
-                    duration: 1.5,
-                    ease: "power2.out"
-                });
-            });
+            <div class="project-gallery"></div>
+            </article></template>
 
-            // --- Avatar Repel Effect ---
-            const avatarWrapper = document.getElementById('avatar-wrapper');
-            const avatarImg = document.getElementById('avatar-img');
-            
-            if(avatarWrapper && avatarImg) {
-                const rect = avatarWrapper.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                
-                const distX = e.clientX - centerX;
-                const distY = e.clientY - centerY;
-                const distance = Math.sqrt(distX*distX + distY*distY);
+            <section class="project-contact" aria-labelledby="project-contact-title">
+                <h2 id="project-contact-title" class="f-h4">Let’s talk about your next project.</h2>
+                <p class="f-body">Visual and product design. Tell me what you have in mind.</p>
+                <a class="project-contact-mail f-h5" href="mailto:hola@danisanroman.com">hola@danisanroman.com</a>
+                <p class="project-contact-hint">Keep scrolling to return to the portfolio.</p>
+            </section>
 
-                if (distance < 180) {
-                    gsap.to(avatarImg, {
-                        x: -(distX * 0.15),
-                        y: -(distY * 0.15),
-                        duration: 0.6,
-                        ease: "power2.out"
-                    });
-                } else {
-                    gsap.to(avatarImg, {
-                        x: 0, y: 0,
-                        duration: 0.8,
-                        ease: "elastic.out(1, 0.4)"
-                    });
-                }
-            }
-        });
 
-        // --- Avatar Hover Src Change ---
-        const avatarWrapper = document.getElementById('avatar-wrapper');
-        const avatarImg = document.getElementById('avatar-img');
-        
-        avatarWrapper.addEventListener('mouseenter', () => {
-            avatarImg.src = './Assets/avatar-dani-hover.png';
-            gsap.to(dot, { scale: 2.5, duration: 0.2, ease: "power2.out" });
-        });
-        
-        avatarWrapper.addEventListener('mouseleave', () => {
-            avatarImg.src = './Assets/avatar-dani.png';
-            gsap.to(dot, { scale: 1, duration: 0.2, ease: "power2.out" });
-        });
-
-        // Hover botones
-        const btns = document.querySelectorAll('.btn-pill, .btn-pill-sec');
-        btns.forEach(btn => {
-            btn.addEventListener('mouseenter', () => gsap.to(dot, { scale: 2.5, duration: 0.2, ease: "power2.out" }));
-            btn.addEventListener('mouseleave', () => gsap.to(dot, { scale: 1, duration: 0.2, ease: "power2.out" }));
-        });
-
-        // --- Carousel de Titulares ---
-        const items = document.querySelectorAll('.headline-item');
-        let currentItem = 0;
-
-        function playCarousel() {
-            const nextItem = (currentItem + 1) % items.length;
-            
-            gsap.to(items[currentItem], {
-                y: "100%",
-                opacity: 0,
-                duration: 0.8,
-                ease: "power3.inOut"
-            });
-
-            gsap.fromTo(items[nextItem], 
-                { y: "-100%", opacity: 0 },
-                { y: "0%", opacity: 1, duration: 0.8, ease: "power3.inOut" }
-            );
-
-            currentItem = nextItem;
-            setTimeout(playCarousel, 3000); 
-        }
-
-        gsap.set(items[0], { y: "0%", opacity: 1 });
-        setTimeout(playCarousel, 3000);
-    </script>
+        </div>
+            <nav class="project-actions" aria-label="Project navigation">
+                <span class="project-counter floating-module" aria-hidden="true"><span class="project-counter-window"><span class="project-counter-value">01</span></span> / <span class="project-counter-total">04</span></span>
+                <button type="button" class="project-action project-action-next floating-module">See next project <i class="ph-bold ph-arrow-down" aria-hidden="true"></i></button>
+                <a href="mailto:hola@danisanroman.com" class="project-action project-action-contact floating-module">Contact Dani! <i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
+            </nav>
+    </div>
+    <script src="./app.8539f00400.min.js"></script>
 </body>
 </html>
