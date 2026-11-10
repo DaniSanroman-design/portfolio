@@ -1,0 +1,44 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-09T17:03:44.171Z",
+        "reason": "User confirmed: preserve the existing design and ignore these reported findings in index.html."
+      },
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-09T17:03:44.283Z",
+        "reason": "User confirmed: preserve the existing design and ignore these reported findings in index.html."
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-09T17:03:44.404Z",
+        "reason": "User confirmed: preserve the existing design and ignore these reported findings in index.html."
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-09T17:03:44.523Z",
+        "reason": "User confirmed: preserve the existing design and ignore these reported findings in index.html."
+      }
+    ]
+  }
+}

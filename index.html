@@ -22,22 +22,22 @@
 <link rel="preload" as="image" href="./Assets/avatar-dani.webp">
 <link rel="preload" as="image" href="./Assets/sequence-light/0001-poster.webp">
     <link rel="preload" as="font" href="./Assets/vendor/fonts/albert-2b38a909840d.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="./site.2344f01794.min.css">
+    <link rel="stylesheet" href="./site.2344f01794.min.css?v=20aa3dea">
     <script src="./vendor.f2eb5e82b9.min.js"></script>
-    <script src="./splash.612f127870.min.js"></script>
+    <script src="./splash.612f127870.min.js?v=f05b61bc"></script>
 </head>
 <body class="light-mode antialiased">
 
     <div class="cursor-dot" id="cursor-dot"></div>
 
-    <nav class="fixed top-6 left-0 w-full z-50 pointer-events-none">
+    <nav class="site-nav fixed top-6 left-0 w-full z-50 pointer-events-none">
         <div class="grid-container flex justify-between items-center gap-4">
             <div class="floating-module rounded-full px-6 py-4 lg:px-8 flex justify-between items-center w-full pointer-events-auto">
                 <div class="f-h6 tracking-tight font-normal">Dani Sanromán</div>
-                <div class="flex items-center space-x-6 lg:space-x-10 f-overline opacity-90">
-                    <a href="#work" class="nav-link hover:text-[#FFCB2F] transition-colors hidden sm:block">Work</a>
-                    <a href="#about" class="nav-link hover:text-[#FFCB2F] transition-colors hidden sm:block">About</a>
-                    <a href="#contact" class="nav-link hover:text-[#FFCB2F] transition-colors hidden sm:block">Contact</a>
+                <div class="flex items-center space-x-6 lg:space-x-10 f-overline">
+                    <a href="#work" class="nav-link hidden sm:block" data-label="Work"><span>Work</span></a>
+                    <a href="#about" class="nav-link hidden sm:block" data-label="About"><span>About</span></a>
+                    <a href="#contact" class="nav-link hidden sm:block" data-label="Contact"><span>Contact</span></a>
                 </div>
             </div>
             <div class="floating-module rounded-full p-2 pointer-events-auto flex items-center justify-center shrink-0">
@@ -226,7 +226,8 @@
             <div class="about-layout">
                 <div class="about-identity-row">
                     <div class="about-portrait-card floating-module">
-                        <img class="about-portrait" src="./Assets/dani-retrato.webp" alt="Portrait of Dani Sanromán" width="1199" height="1312" loading="lazy" decoding="async">
+                        <img class="about-portrait about-portrait--light" src="./Assets/dani-retrato.webp" alt="Portrait of Dani Sanromán" width="1199" height="1312" loading="lazy" decoding="async">
+                        <img class="about-portrait about-portrait--dark" src="./Assets/dani-retrato-dark.webp" alt="" aria-hidden="true" width="1199" height="1312" loading="lazy" decoding="async">
                     </div>
                     <div class="about-identity floating-module">
                         <div>
@@ -295,8 +296,8 @@
 
         <footer id="footer" class="w-full relative overflow-hidden flex flex-col justify-end z-10">
             <div class="noise-overlay z-10"></div>
-            <video id="footer-video-light" src="./Assets/footer-light.mp4" poster="./Assets/footer-light-poster.webp" width="1672" height="941" muted loop playsinline preload="metadata" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-bottom z-0 transition-opacity duration-1000 opacity-100 pointer-events-none"></video>
-            <video id="footer-video-dark" src="./Assets/footer-dark.mp4" poster="./Assets/footer-dark-poster.webp" width="1672" height="941" muted loop playsinline preload="metadata" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-bottom z-0 transition-opacity duration-1000 opacity-0 pointer-events-none"></video>
+            <video id="footer-video-light" src="./Assets/footer-light.mp4" poster="./Assets/footer-light-poster.webp?v=b70914d9" width="1280" height="720" muted loop playsinline preload="metadata" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-bottom z-0 transition-opacity duration-1000 opacity-100 pointer-events-none"></video>
+            <video id="footer-video-dark" src="./Assets/footer-dark.mp4" poster="./Assets/footer-dark-poster.webp?v=cbf83e8b" width="1280" height="720" muted loop playsinline preload="metadata" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-bottom z-0 transition-opacity duration-1000 opacity-0 pointer-events-none"></video>
             <div class="footer-blend" aria-hidden="true"></div>
             
             <div class="footer-content grid-container relative z-20 w-full">
@@ -371,6 +372,7 @@
                 <a href="mailto:hola@danisanroman.com" class="project-action project-action-contact floating-module">Contact Dani! <i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
             </nav>
     </div>
-    <script src="./app.8539f00400.min.js"></script>
+    <script src="./app.8539f00400.min.js?v=14e85a3e"></script>
+    <script src="./bento-motion.js?v=cddb0ec1"></script>
 </body>
 </html>
